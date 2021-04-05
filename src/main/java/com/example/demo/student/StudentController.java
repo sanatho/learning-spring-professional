@@ -1,24 +1,31 @@
 package com.example.demo.student;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(path = "api/v1/students")
 public class StudentController {
 
+    private final StudentService studentService;
+
     @GetMapping
     public List<Student> getAllStudent(){
+        return studentService.getAllStudent();
+    }
 
-        List<Student> students = Arrays.asList(
-                new Student(1L, "Thomas Sanavia", "tsanavia@gmail.com", Gender.MALE),
-                new Student(2L, "Thomas Zin", "tsanavia@gmail.com", Gender.MALE)
-        );
+    @PostMapping
+    public void addStudent(@Valid @RequestBody Student student){
+        studentService.addStudent(student);
+    }
 
-        return students;
+    @DeleteMapping("{studentId}")
+    public void removeStudent(@PathVariable("studentId") Long id){
+        studentService.removeStudent(id);
     }
 }
