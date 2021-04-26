@@ -9,7 +9,7 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Assertions.fail("Fail!");
+		Assertions.fail("Fail! doppio");
 	}
 
 }
